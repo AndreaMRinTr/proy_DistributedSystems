@@ -1,6 +1,6 @@
 # Twitter Reloaded
 
-## participantes : Otoniel Baeza Varela A01561804
+## participantes :
 
 ### Andrea Melissa Rincon Trejo A01365736
 
