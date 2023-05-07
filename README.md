@@ -6,7 +6,7 @@
 
 ### Otoniel Baeza Varela A01561804
 
-Este es el esqueleto de una pplicacion similar a Twittre llamada "Twitter Reloaded"
+Este es el esqueleto de una pplicacion similar a Twitter llamada "Twitter Reloaded"
 
 ## Prerequisitos
 
