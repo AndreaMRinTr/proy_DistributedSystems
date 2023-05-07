@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Reloaded</title>
+	<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div class="top-bar">
+		<h1>bienvenido a Twitter Reloaded</h1>
+		<form method="post" action="{{ url_for('create_tweet') }}">
+				<button  class ="abutton" type="submit">Nuevo Tweet</button>
+		</form>
+	</div>
+	<div class="tweet-container">
+		Los tweets seran mostrados aqui
+	</div>
+</body>
+</html>
