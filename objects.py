@@ -3,7 +3,6 @@ class Tweet:
         self.text = text
         self.author = author
         self.timestamp = timestamp
-        self.replies = []
         self.comments = []
 
 class User:
@@ -12,6 +11,7 @@ class User:
         self.handle = handle
         self.tweets = []
         self.replies = []
+        self.password =""
 
     def create_tweet(self, text, timestamp):
         tweet = Tweet(text, self, timestamp)

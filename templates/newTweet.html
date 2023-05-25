@@ -8,7 +8,8 @@
 	<div class="container">
 		<div class="box">
 			<h1>What are you thinking about?</h1>
-			<input type="text" placeholder="Type your tweet here...">
+			<textarea id="inputField" rows="4" cols="50" maxlength="300" oninput="checkCharacterCount()"></textarea>
+			<label id ="charCount">--</label>
 			<div class="buttons">
 				<form method="post" action="{{ url_for('board') }}">
 					<button  class ="abutton" type="submit">cancelar</button>
@@ -20,5 +21,19 @@
 			</div>
 		</div>
 	</div>
+ <script>
+    function checkCharacterCount() {
+      var input = document.getElementById("inputField");
+      var count = input.value.length;
+
+      if (count > 300) {
+        input.value = input.value.substr(0, 300); // Truncate the text to 300 characters
+        count = 300;
+      }
+
+      // Display the character count
+      document.getElementById("charCount").textContent = count;
+    }
+  </script>
 </body>
 </html>

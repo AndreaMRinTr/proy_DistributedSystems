@@ -8,11 +8,29 @@
 	<div class="top-bar">
 		<h1>bienvenido a Twitter Reloaded</h1>
 		<form method="post" action="{{ url_for('create_tweet') }}">
-				<button  class ="abutton" type="submit">Nuevo Tweet</button>
+			<button  class ="abutton" type="submit">Nuevo Tweet</button>
 		</form>
 	</div>
+
 	<div class="tweet-container">
-		Los tweets seran mostrados aqui
-	</div>
+
+        {% for tweet in tweets %}
+        <div class="tweet">
+			<div class="tweet-header">
+				 <p class="tweet-author">{{ tweet.username }}</p>
+			</div>
+			<div class="tweet-content">
+				<p class="tweet-text">{{ tweet.content }}</p>
+			</div>
+            <div class="tweet-details">
+				  <p class="tweet-time">{{ tweet.timestamp }}</p>
+			</div>
+
+
+        </div>
+        {% endfor %}
+    </div>
+
+
 </body>
 </html>

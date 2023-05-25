@@ -1,9 +1,13 @@
 # This is a sample Python script.
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template,jsonify
 from datetime import datetime
-from objects import Tweet
-app = Flask(__name__)
+from objects import Tweet, User
+from pymongo import MongoClient
+import json
 
+app = Flask(__name__)
+#client = MongoClient('mongodb://localhost:27017/')
+#db = client['your_database_name']
 
 @app.route('/')
 def hello_world():
@@ -31,12 +35,17 @@ def create_tweet():
 
 @app.route('/board', methods=['POST'])
 def board():
-    return render_template('DashBoard.html')
+    tweets = load_tweets_from_json()
+    return render_template('DashBoard.html', tweets=tweets)
+
+def load_tweets_from_json():
+    with open('tweets.json') as file:
+        tweets = json.load(file)
+    return tweets
+
 
 if __name__ == '__main__':
     app.run()
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
 

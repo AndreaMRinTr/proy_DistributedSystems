@@ -1,0 +1,52 @@
+[
+  {
+    "username": "user1",
+    "content": "This is my first tweet!",
+    "timestamp": "2023-05-25 09:00:00"
+  },
+  {
+    "username": "user2",
+    "content": "Just had a delicious meal at my favorite restaurant.",
+    "timestamp": "2023-05-25 09:15:00"
+  },
+  {
+    "username": "user3",
+    "content": "Excited for the weekend getaway! #vacation",
+    "timestamp": "2023-05-25 10:30:00"
+  },
+  {
+    "username": "user4",
+    "content": "Watching my favorite TV show tonight. Can't wait!",
+    "timestamp": "2023-05-25 12:45:00"
+  },
+  {
+    "username": "user5",
+    "content": "Just finished reading an amazing book. Highly recommend it!",
+    "timestamp": "2023-05-25 14:00:00"
+  },
+  {
+    "username": "user6",
+    "content": "Attended an inspiring conference today. Learned a lot!",
+    "timestamp": "2023-05-25 15:30:00"
+  },
+  {
+    "username": "user7",
+    "content": "Celebrating my birthday with friends and family. Feeling blessed!",
+    "timestamp": "2023-05-25 16:45:00"
+  },
+  {
+    "username": "user8",
+    "content": "Just adopted a cute puppy. Welcome to the family!",
+    "timestamp": "2023-05-25 18:00:00"
+  },
+  {
+    "username": "user9",
+    "content": "Hiking in the mountains today. The view is breathtaking!",
+    "timestamp": "2023-05-25 19:15:00"
+  },
+  {
+    "username": "user10",
+    "content": "Working on an exciting project. Can't wait to share it with everyone!",
+    "timestamp": "2023-05-25 20:30:00"
+  }
+]
