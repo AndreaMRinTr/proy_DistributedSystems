@@ -74,7 +74,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			height: 100vh;
+			height: 100dvh;
 			text-align: center;
 			font-style: italic;
 			color: #696969;
@@ -84,6 +84,7 @@
     margin: 0 auto;
     background-color: #444444;
 	display: flex;
+	padding-right: 5%;
 	flex-direction: column;
 	align-items: flex-start;
 
@@ -120,5 +121,10 @@
 .tweet-text{
 	color: white;
 	font-size: larger;
+}
+.main_page{
+	display: flex;
+	flex-direction: row;
+	
 }
 

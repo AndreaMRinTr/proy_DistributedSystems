@@ -1,52 +1,132 @@
 [
   {
-    "username": "user1",
-    "content": "This is my first tweet!",
+    "username": "john_doe",
+    "content": "Just had the most amazing dinner with friends. Great food and even better company!",
     "timestamp": "2023-05-25 09:00:00"
   },
   {
-    "username": "user2",
-    "content": "Just had a delicious meal at my favorite restaurant.",
-    "timestamp": "2023-05-25 09:15:00"
+    "username": "emma_smith",
+    "content": "I can't believe how fast time flies. It feels like just yesterday it was the start of the year!",
+    "timestamp": "2023-05-25 10:15:23"
   },
   {
-    "username": "user3",
-    "content": "Excited for the weekend getaway! #vacation",
-    "timestamp": "2023-05-25 10:30:00"
+    "username": "alex_miller",
+    "content": "Exploring new hiking trails is my favorite weekend activity. The views are always breathtaking!",
+    "timestamp": "2023-05-25 11:45:17"
   },
   {
-    "username": "user4",
-    "content": "Watching my favorite TV show tonight. Can't wait!",
-    "timestamp": "2023-05-25 12:45:00"
+    "username": "sarah_jones",
+    "content": "Just finished reading a captivating book. Highly recommend it to all the bookworms out there!",
+    "timestamp": "2023-05-25 12:30:55"
   },
   {
-    "username": "user5",
-    "content": "Just finished reading an amazing book. Highly recommend it!",
-    "timestamp": "2023-05-25 14:00:00"
+    "username": "michael_wilson",
+    "content": "Finally got around to watching that movie everyone's been raving about. It definitely lived up to the hype!",
+    "timestamp": "2023-05-25 14:20:12"
   },
   {
-    "username": "user6",
-    "content": "Attended an inspiring conference today. Learned a lot!",
-    "timestamp": "2023-05-25 15:30:00"
+    "username": "olivia_thompson",
+    "content": "Enjoying a lazy Sunday with a good cup of coffee and a book. Perfect way to recharge for the week ahead!",
+    "timestamp": "2023-05-25 15:05:43"
   },
   {
-    "username": "user7",
-    "content": "Celebrating my birthday with friends and family. Feeling blessed!",
-    "timestamp": "2023-05-25 16:45:00"
+    "username": "jacob_anderson",
+    "content": "Just witnessed a beautiful sunset by the beach. Nature never ceases to amaze me!",
+    "timestamp": "2023-05-25 16:40:09"
   },
   {
-    "username": "user8",
-    "content": "Just adopted a cute puppy. Welcome to the family!",
-    "timestamp": "2023-05-25 18:00:00"
+    "username": "emily_clark",
+    "content": "Had a productive day at work today. Feeling accomplished and ready to take on new challenges!",
+    "timestamp": "2023-05-25 17:55:37"
   },
   {
-    "username": "user9",
-    "content": "Hiking in the mountains today. The view is breathtaking!",
-    "timestamp": "2023-05-25 19:15:00"
+    "username": "william_jackson",
+    "content": "Attended an inspiring conference today. So many great ideas and insights shared!",
+    "timestamp": "2023-05-25 19:10:21"
   },
   {
-    "username": "user10",
-    "content": "Working on an exciting project. Can't wait to share it with everyone!",
-    "timestamp": "2023-05-25 20:30:00"
+    "username": "ava_hernandez",
+    "content": "Spent the day exploring a new city. It's fascinating to discover new places and cultures!",
+    "timestamp": "2023-05-25 20:45:18"
+  },
+  {
+    "username": "noah_lewis",
+    "content": "Hitting the gym is my favorite stress reliever. Nothing beats a good workout!",
+    "timestamp": "2023-05-25 21:30:04"
+  },
+  {
+    "username": "lily_rodriguez",
+    "content": "Just tried a new recipe I found online. Turned out delicious! Definitely adding it to my favorites.",
+    "timestamp": "2023-05-26 08:20:53"
+  },
+  {
+    "username": "ethan_andrews",
+    "content": "Enjoying a movie marathon today. Sometimes you just need a day of relaxation and entertainment!",
+    "timestamp": "2023-05-26 09:45:32"
+  },
+  {
+    "username": "mia_ward",
+    "content": "Attended a live concert last night. The energy and music were absolutely electrifying!",
+    "timestamp": "2023-05-26 11:10:19"
+  },
+  {
+    "username": "james_scott",
+    "content": "Visited a local art exhibition today. So much talent and creativity on display!",
+    "timestamp": "2023-05-26 12:25:46"
+  },
+  {
+    "username": "amelia_lee",
+    "content": "Just adopted a new furry friend from the shelter. Can't wait to give them a loving home!",
+    "timestamp": "2023-05-26 14:15:03"
+  },
+  {
+    "username": "benjamin_harris",
+    "content": "Volunteered at a community event today. It feels great to give back and make a difference!",
+    "timestamp": "2023-05-26 15:30:29"
+  },
+  {
+    "username": "ava_green",
+    "content": "Started learning a new musical instrument today. Excited for this musical journey!",
+    "timestamp": "2023-05-26 16:45:57"
+  },
+  {
+    "username": "samuel_taylor",
+    "content": "Took a long walk in the park today. It's amazing how nature can bring a sense of peace and calm.",
+    "timestamp": "2023-05-26 18:20:14"
+  },
+  {
+    "username": "harper_campbell",
+    "content": "Spent the evening with friends, playing board games and having a lot of laughs. Good times!",
+    "timestamp": "2023-05-26 19:35:42"
+  },
+  {
+    "username": "david_parker",
+    "content": "Attended a thought-provoking lecture today. It's important to never stop learning and expanding our minds!",
+    "timestamp": "2023-05-26 20:50:36"
+  },
+  {
+    "username": "sophia_stewart",
+    "content": "Had a spontaneous road trip with friends. Adventures and memories that will last a lifetime!",
+    "timestamp": "2023-05-26 21:35:11"
+  },
+  {
+    "username": "henry_roberts",
+    "content": "Cooked a delicious meal for my family tonight. Nothing brings people together like good food!",
+    "timestamp": "2023-05-27 08:25:59"
+  },
+  {
+    "username": "victoria_hall",
+    "content": "Enjoying a quiet morning at home, sipping tea and watching the sunrise. Serenity at its best!",
+    "timestamp": "2023-05-27 09:40:37"
+  },
+  {
+    "username": "jackson_young",
+    "content": "Spent the day at an amusement park. Rides, games, and lots of laughter—what a fun-filled day!",
+    "timestamp": "2023-05-27 11:15:28"
+  },
+  {
+    "username": "chloe_adams",
+    "content": "Attended a photography workshop today. Learned some valuable tips and tricks!",
+    "timestamp": "2023-05-27 12:00:05"
   }
 ]

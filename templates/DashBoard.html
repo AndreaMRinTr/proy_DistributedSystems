@@ -3,19 +3,19 @@
 <head>
 	<title>Twitter Reloaded</title>
 	<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
 	<div class="top-bar">
 		<h1>bienvenido a Twitter Reloaded</h1>
 		<form method="post" action="{{ url_for('create_tweet') }}">
 			<button  class ="abutton" type="submit">Nuevo Tweet</button>
 		</form>
 	</div>
+</head>
+<body>
+	<div class = "main_page">
+		<div class="tweet-container">
 
-	<div class="tweet-container">
-
-        {% for tweet in tweets %}
-        <div class="tweet">
+        	{% for tweet in tweets %}
+        	<div class="tweet">
 			<div class="tweet-header">
 				 <p class="tweet-author">{{ tweet.username }}</p>
 			</div>
@@ -25,11 +25,28 @@
             <div class="tweet-details">
 				  <p class="tweet-time">{{ tweet.timestamp }}</p>
 			</div>
+		</div>
+        	{% endfor %}
+    	</div>
+		<div class = "ResponsePanels">
+			{% for tweet in tweets %}
+        	<div class="tweet">
+			<div class="tweet-header">
+				 <p class="tweet-author">{{ tweet.username }}</p>
+			</div>
+			<div class="tweet-content">
+				<p class="tweet-text">{{ tweet.content }}</p>
+			</div>
+            <div class="tweet-details">
+				  <p class="tweet-time">{{ tweet.timestamp }}</p>
+			</div>
+		</div>
+        	{% endfor %}
+		</div>
+	</div>
 
 
-        </div>
-        {% endfor %}
-    </div>
+
 
 
 </body>
