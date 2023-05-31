@@ -6,9 +6,9 @@ class Tweet:
         self.comments = []
 
 class User:
-    def __init__(self, name, handle):
-        self.name = name
-        self.handle = handle
+    def __init__(self, userid, nickname):
+        self.name = userid
+        self.nickname = nickname
         self.tweets = []
         self.replies = []
         self.password =""

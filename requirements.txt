@@ -1,3 +1,5 @@
 flask
 request
 render_template
+mysql-connector-python
+passlib
