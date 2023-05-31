@@ -3,27 +3,26 @@
 <head>
 	<title>Twitter Reloaded</title>
 	<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href= "{{ url_for('static', filename='header.css') }}">
 </head>
 <body>
+	<div class="top-bar">
+		<div class = username>
+			<span>bienvenido a Twitter Reloaded</span>
+		</div>
+	</div>
 	<div class="container">
 		<div class="box">
-			<h1>What are you thinking about?</h1>
-			<textarea id="inputField" rows="4" cols="50" maxlength="300" oninput="checkCharacterCount()"></textarea>
-			<label id ="charCount">--</label>
-			<div class="buttons">
-				<form method="post" action="{{ url_for('board') }}">
-					<button  class ="abutton" type="submit">cancelar</button>
-				</form>
-				<form method="post" action="{{ url_for('board') }}">
-					<button  class ="abutton" type="submit">post</button>
-				</form>
-
-			</div>
+			<form action="/submit" method="POST">
+				<label for="tweet_text" id ="charCount" >Tweet Text:</label>
+				<textarea name="tweet_text" id="tweet_text" rows="4" cols="50" maxlength="300" oninput="checkCharacterCount()"></textarea><br><br>
+				<input type="submit" value="Create Tweet">
+    		</form>
 		</div>
 	</div>
  <script>
     function checkCharacterCount() {
-      var input = document.getElementById("inputField");
+      var input = document.getElementById("tweet_text");
       var count = input.value.length;
 
       if (count > 300) {
@@ -37,3 +36,5 @@
   </script>
 </body>
 </html>
+
+
