@@ -1,0 +1,44 @@
+.top-bar {
+    background-color: #00BFFF;
+    display: flex;
+    align-items: center;
+    height: 5svh;
+    position: fixed;
+    color: #FFFFFF;
+    width: 100%;
+}
+.logo{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.logo svg {
+    height: 100%;
+    width: auto;
+    margin-left: 10px;
+}
+.username {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    height: 100%;
+}
+
+.abutton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #444444;
+    color: #FFFFFF;
+    font-size: 16px;
+    height: 100%;
+}
+
+.button abutton {
+    height: 100%;
+    background-color: #444444;
+}

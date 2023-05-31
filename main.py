@@ -2,13 +2,16 @@
 from flask import Flask, request, render_template,jsonify
 from datetime import datetime
 from objects import Tweet, User
-from pymongo import MongoClient
+import mysql.connector
 import json
 
 app = Flask(__name__)
-#client = MongoClient('mongodb://localhost:27017/')
-#db = client['your_database_name']
-
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="tweetdisarq"  # Replace with your actual database name
+)
 @app.route('/')
 def hello_world():
     #return 'Hello, World!  check out this tweet {}'.format(create_tweet())
@@ -35,8 +38,15 @@ def create_tweet():
 
 @app.route('/board', methods=['POST'])
 def board():
-    tweets = load_tweets_from_json()
-    return render_template('DashBoard.html', tweets=tweets)
+    cursor = db.cursor()
+    query = """
+    SELECT t.fecha, t.text, u.nickname, t.hora
+    FROM tweet AS t
+    JOIN user AS u ON t.author = u.userid
+    """
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return render_template('DashBoard.html', data=data)
 
 @app.route('/details', methods=['POST'])
 def details():
