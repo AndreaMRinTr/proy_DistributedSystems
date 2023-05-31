@@ -48,7 +48,11 @@ def login_check():
 #pagina donde se crean tweets nuevos
 @app.route('/create_tweet', methods=['POST'])
 def create_tweet():
-    return render_template('newTweet.html')
+    # accede al variable global User
+    user_dict = session.get('user')
+    if user_dict:
+        user = User(user_dict['name'], user_dict['nickname'])
+    return render_template('newTweet.html', Usr=user.nickname)
 
 
 #Dashboard del usuario
@@ -61,10 +65,13 @@ def board():
     """
     cursor.execute(query)
     data = cursor.fetchall()
+
+    #accede al variable global User
     user_dict = session.get('user')
     if user_dict:
         user = User(user_dict['name'], user_dict['nickname'])
-    return render_template('DashBoard.html', data=data, Usr = user.nickname)
+
+    return render_template('DashBoard.html', data=data, Usr=user.nickname)
 
 #this is temporary but it will display los comentarios
 @app.route('/details', methods=['POST'])
@@ -85,16 +92,22 @@ def load_tweets_from_json():
 
 #crea un tweet, pero hay que tener acceso al usuario primero antes de insertarlo en la DB
 def insert_tweet(text):
+    #acceso al usuario
+    user_dict = session.get('user')
+    if user_dict:
+        user = User(user_dict['name'], user_dict['nickname'])
+
     _datetime = datetime.now()
     # Convert date and time to strings
-    cur_fecha = _datetime.strftime('%Y-%m-%d')
+    cur_fecha = _datetime.strftime('%d/%m/%Y')
     cur_hora = _datetime.strftime('%H:%M:%S')
     cursor = db.cursor()
+
     query = """
     INSERT INTO tweet (fecha, hora, author, text)
     VALUES (%s, %s, %s, %s)
     """
-    values = (cur_fecha, cur_hora, "ElOtoMotto", text)  # Replace with appropriate values for fecha, hora, and author
+    values = (cur_fecha, cur_hora,user.name, text)  # Replace with appropriate values for fecha, hora, and author
     cursor.execute(query, values)
     db.commit()
     return "Tweet inserted successfully"
@@ -103,7 +116,7 @@ def insert_tweet(text):
 def submit():
     tweet_text = request.form['tweet_text']
     insert_tweet(tweet_text)
-    return "Tweet generated and inserted into the database successfully"
+    return redirect('/board')
 
 if __name__ == '__main__':
     app.run()
