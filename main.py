@@ -38,6 +38,15 @@ def board():
     tweets = load_tweets_from_json()
     return render_template('DashBoard.html', tweets=tweets)
 
+@app.route('/details', methods=['POST'])
+def details():
+    thread = load_tweets_from_json()
+    tweet = {
+        "username": "michael_wilson",
+        "content": "Finally got around to watching that movie everyone's been raving about. It definitely lived up to the hype!",
+        "timestamp": "2023-05-25 14:20:12"
+    }
+    return render_template('details.html', tweet=tweet, threads=thread)
 def load_tweets_from_json():
     with open('tweets.json') as file:
         tweets = json.load(file)

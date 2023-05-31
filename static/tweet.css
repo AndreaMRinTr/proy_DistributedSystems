@@ -1,0 +1,32 @@
+.tweet-header {
+   
+	background-color: #00BFFF;
+	flex: 0 0 25%;
+	margin-right: 10px;
+	display: flex;
+    flex-direction: row;	
+	width: 50%;
+	color: white;
+  	
+}
+.tweet-header .item{	
+	flex: 1;
+	height: 100%;
+	background-color: blue;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;   
+}
+
+.tweet-content {
+	display: flex;
+	flex-direction: column;
+	background-color: #a7a7a7;	
+	
+}
+.tweet-text{
+	color: white;
+	font-size: larger;
+	margin-bottom: 10px;
+}

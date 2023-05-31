@@ -3,6 +3,7 @@
 <head>
 	<title>Twitter Reloaded</title>
 	<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href= "{{ url_for('static', filename='tweet.css') }}">
 	<div class="top-bar">
 		<h1>bienvenido a Twitter Reloaded</h1>
 		<form method="post" action="{{ url_for('create_tweet') }}">
@@ -11,43 +12,32 @@
 	</div>
 </head>
 <body>
-	<div class = "main_page">
+
 		<div class="tweet-container">
-
         	{% for tweet in tweets %}
-        	<div class="tweet">
-			<div class="tweet-header">
-				 <p class="tweet-author">{{ tweet.username }}</p>
-			</div>
-			<div class="tweet-content">
-				<p class="tweet-text">{{ tweet.content }}</p>
-			</div>
-            <div class="tweet-details">
+        	<div class="tweet" onclick="openModal('{{ tweet.username }}', '{{ tweet.content }}', '{{ tweet.timestamp }}')">
+				<div class="tweet-header">
+				 	<p class="item">{{ tweet.username }}</p>
+				</div>
+				<div class="tweet-content">
+					<p class="tweet-text">{{ tweet.content }}</p>
+				</div>
+            	<div class="tweet-details">
 				  <p class="tweet-time">{{ tweet.timestamp }}</p>
+				</div>
 			</div>
-		</div>
-        	{% endfor %}
-    	</div>
-		<div class = "ResponsePanels">
-			{% for tweet in tweets %}
-        	<div class="tweet">
-			<div class="tweet-header">
-				 <p class="tweet-author">{{ tweet.username }}</p>
-			</div>
-			<div class="tweet-content">
-				<p class="tweet-text">{{ tweet.content }}</p>
-			</div>
-            <div class="tweet-details">
-				  <p class="tweet-time">{{ tweet.timestamp }}</p>
-			</div>
-		</div>
         	{% endfor %}
 		</div>
+
+
+		<!-- Modal -->
+	<div id="tweetModal" class="modal">
+	  <div class="modal-content">
+		<span class="close" onclick="closeModal()">&times;</span>
+		<h2 id="modal-username"></h2>
+		<p id="modal-content"></p>
+		<p id="modal-timestamp"></p>
+	  </div>
 	</div>
-
-
-
-
-
 </body>
 </html>
