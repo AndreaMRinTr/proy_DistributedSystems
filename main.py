@@ -1,5 +1,5 @@
 # This is a sample Python script.
-from flask import Flask, request, render_template, session, redirect
+from flask import Flask, request, render_template, session, redirect, url_for
 import mysql.connector
 from datetime import datetime
 import json
@@ -59,7 +59,7 @@ def create_tweet():
 @app.route('/board', methods=['GET', 'POST'])
 def board():
     query = """
-    SELECT t.fecha, t.text, u.nickname, t.hora
+    SELECT t.fecha, t.text, u.nickname, t.hora,t.id
     FROM tweet AS t
     JOIN user AS u ON t.author = u.userid
     """
@@ -74,21 +74,40 @@ def board():
     return render_template('DashBoard.html', data=data, Usr=user.nickname)
 
 #this is temporary but it will display los comentarios
-@app.route('/details', methods=['POST'])
-def details():
-    thread = load_tweets_from_json()
-    tweet = {
-        "username": "michael_wilson",
-        "content": "Finally got around to watching that movie everyone's been raving about. It definitely lived up to the hype!",
-        "timestamp": "2023-05-25 14:20:12"
-    }
-    return render_template('details.html', tweet=tweet, threads=thread)
+@app.route('/details/<int:tweet_id>', methods=['POST', 'GET'])
+def details(tweet_id):
+    if request.method == 'POST':
 
+        reply_text = request.form['reply']
+
+        insert_comment(reply_text, tweet_id)
+
+        return redirect(url_for('details', tweet_id=tweet_id))
+    query = """
+   SELECT t.fecha, t.text, u.nickname, t.hora
+   FROM comment AS t
+   JOIN user AS u ON t.userid = u.userid
+   WHERE   t.id_tweet = %s
+   """
+    cursor.execute(query, (tweet_id,))
+    data = cursor.fetchall()
+
+    user_dict = session.get('user')
+    if user_dict:
+        user = User(user_dict['name'], user_dict['nickname'])
+    selected = getSingleTweet(tweet_id)
+    return render_template('details.html', threads=data, Usr=user.nickname, Tweet=tweet_id, Selctd = selected)
+
+def getSingleTweet(tweet_id):
+    query = """SELECT t.fecha, t.text, u.nickname, t.hora,t.id
+    FROM tweet AS t
+    JOIN user AS u ON t.author = u.userid
+    WHERE   t.id = %s
+    """
+    cursor.execute(query, (tweet_id,))
+    data = cursor.fetchone()
+    return data
 #ya no se necesita
-def load_tweets_from_json():
-    with open('tweets.json') as file:
-        tweets = json.load(file)
-    return tweets
 
 #crea un tweet, pero hay que tener acceso al usuario primero antes de insertarlo en la DB
 def insert_tweet(text):
@@ -117,6 +136,26 @@ def submit():
     tweet_text = request.form['tweet_text']
     insert_tweet(tweet_text)
     return redirect('/board')
+
+def insert_comment(text,id):
+    # acceso al usuario
+    user_dict = session.get('user')
+    if user_dict:
+        user = User(user_dict['name'], user_dict['nickname'])
+    _datetime = datetime.now()
+    # Convert date and time to strings
+    cur_fecha = _datetime.strftime('%d/%m/%Y')
+    cur_hora = _datetime.strftime('%H:%M:%S')
+    cursor = db.cursor()
+
+    query = """
+        INSERT INTO comment (id_tweet,fecha,hora,userid,text)
+        VALUES (%s, %s, %s, %s, %s)
+        """
+    values = (id, cur_fecha, cur_hora, user.name, text)  # Replace with appropriate values for fecha, hora, and author
+    cursor.execute(query, values)
+    db.commit()
+    return "comment inserted successfully"
 
 if __name__ == '__main__':
     app.run()

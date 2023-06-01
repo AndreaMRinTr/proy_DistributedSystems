@@ -8,6 +8,19 @@
 	border-bottom-left-radius: 15%;
     border-top-left-radius: 15%;
 }
+.tweet_2{
+    background-color: #303036;
+    border: 1px solid #000000; 
+  
+	width: 90vw;
+    height: 25dvh;
+    padding-bottom:10vh;
+    padding-top: 10px;
+	display: flex;
+    flex-direction: row;
+    margin-bottom: 0%;
+	
+}
 
 .tweet-header {
 
@@ -15,7 +28,7 @@
 	flex: 0 0 15%;	
 	display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
 	width: 50%;
 	color: white;
     border-bottom-left-radius: 15%;

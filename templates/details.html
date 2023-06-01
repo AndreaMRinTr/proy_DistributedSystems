@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Reloaded</title>
+	<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href= "{{ url_for('static', filename='tweet.css') }}">
+	<link rel="stylesheet" href= "{{ url_for('static', filename='header.css') }}">
+</head>
+<body>
+
+	<div class="top-bar">
+		<div class = username>
+			<span>que piensas de este tweet {{Usr}}</span>
+		</div>
+		<div class="button">
+      		<form method="post" action="{{ url_for('board') }}">
+				<button  class ="abutton" type="submit">return</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="tweet-container">
+		<div class="tweet_2">
+			<div class="tweet-header">
+				<h1 class="item"> {{Selctd[2]}}</h1>
+			</div>
+			<div class="tweet-content">
+				<p class="tweet-text">{{Selctd[1]}} </p>
+				<div class="tweet-details">
+					<p class ="left">{{Selctd[0]}}</p>
+					<p class ="right">{{Selctd[3]}}</p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h1>Reply Form</h1>
+			<form method="POST" action="{{ url_for('details', tweet_id=Tweet) }}">
+			  <input type="text" name="reply" placeholder="Enter your reply" required>
+			  <button type="submit">Reply</button>
+			</form>
+		</div>
+	</div>
+
+
+	<div class="tweet-container">
+		{% for row in threads %}
+		<div class="tweet">
+			<div class="tweet-header">
+				<h1 class="item">{{ row[2]}}</h1>
+			</div>
+			<div class="tweet-content">
+				<p class="tweet-text">{{ row[1] }}</p>
+				<div class="tweet-details">
+					<p class ="left">{{ row[0] }}</p>
+					<p class ="right">{{ row[3] }}</p>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+</body>
+</html>
