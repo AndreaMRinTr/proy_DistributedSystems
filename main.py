@@ -2,7 +2,6 @@
 from flask import Flask, request, render_template, session, redirect, url_for
 import mysql.connector
 from datetime import datetime
-import json
 from objects import User, Tweet, Thread
 
 
