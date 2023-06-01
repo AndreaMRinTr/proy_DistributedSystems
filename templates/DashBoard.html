@@ -23,19 +23,38 @@
 
 	<div class="tweet-container">
 		{% for row in data %}
-		<div class="tweet">
-			<div class="tweet-header">
-				<h1 class="item">{{ row[2]}}</h1>
-			</div>
-			<div class="tweet-content">
-				<p class="tweet-text">{{ row[1] }}</p>
-				<div class="tweet-details">
-					<p class ="left">{{ row[0] }}</p>
-					<p class ="right">{{ row[3] }}</p>
+		<div class="Tweet-box">
+			<div class="tweet">
+				<div class="tweet-header">
+					<h1 class="item">{{ row.author}}</h1>
 				</div>
+				<div class="tweet-content">
+					<p class="tweet-text">{{ row.text }}</p>
+					<div class="tweet-details">
+						<p class ="left">{{ row.timestamp }}</p>
+						<p class ="right">{{ row.hour}}</p>
+					</div>
+				</div>
+				<a href="{{ url_for('details', tweet_id=row.id) }}">Reply</a>
 			</div>
-			<a href="{{ url_for('details', tweet_id=row[4]) }}">Reply</a>
+			<div class="Reply-container">
+				{% for reply in row.comments %}
+				<div class="reply">
+					<div class="reply-header">
+						<h1 class="item">{{ reply[2]}}</h1>
+					</div>
+					<div class="reply-content">
+						<p class="reply-text">{{ reply[1] }}</p>
+						<div class="reply-details">
+							<p class ="left">{{ reply[0] }}</p>
+							<p class ="right">{{ reply[3] }}</p>
+						</div>
+					</div>
+			</div>
+				{% endfor %}
+			</div>
 		</div>
+
 		{% endfor %}
 	</div>
 

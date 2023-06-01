@@ -1,9 +1,11 @@
 class Tweet:
-    def __init__(self, text, author, timestamp):
+    def __init__(self, text, author, timestamp, hour, id):
         self.text = text
         self.author = author
         self.timestamp = timestamp
-        self.comments = []
+        self.hour = hour
+        self.comments = ()
+        self.id = id
 
 class User:
     def __init__(self, userid, nickname):

@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, session, redirect, url_for
 import mysql.connector
 from datetime import datetime
 import json
-from objects import User
+from objects import User, Tweet, Thread
 
 
 app = Flask(__name__)
@@ -58,20 +58,40 @@ def create_tweet():
 #Dashboard del usuario
 @app.route('/board', methods=['GET', 'POST'])
 def board():
+    Tweets_to_be_Shown = []
+
+    # accede al variable global User
+    user_dict = session.get('user')
+    if user_dict:
+        user = User(user_dict['name'], user_dict['nickname'])
+    #query para conseguir todos los tweets
     query = """
     SELECT t.fecha, t.text, u.nickname, t.hora,t.id
     FROM tweet AS t
     JOIN user AS u ON t.author = u.userid
     """
     cursor.execute(query)
-    data = cursor.fetchall()
+    data = cursor.fetchall() # esta data se refiere a todos los tweets
 
-    #accede al variable global User
-    user_dict = session.get('user')
-    if user_dict:
-        user = User(user_dict['name'], user_dict['nickname'])
-
-    return render_template('DashBoard.html', data=data, Usr=user.nickname)
+    for item in data:
+        twt = Tweet(item[1], item[2], item[0], item[3], item[4])
+        print("Author:", twt.author)
+        print("Text:", twt.text)
+        print("Timestamp:", twt.timestamp)
+        print("Hour:", twt.hour)
+        print("----------")
+        #la siguiente funcion se encarga de conseguir todos los commentarios
+        query = """
+           SELECT c.fecha, c.text, u.nickname, c.hora
+           FROM comment AS c
+           JOIN user AS u ON c.userid = u.userid
+           WHERE   c.id_tweet = %s
+           """
+        cursor.execute(query, (item[4],))
+        reply = cursor.fetchall()
+        twt.comments = reply
+        Tweets_to_be_Shown.append(twt)
+    return render_template('DashBoard.html', data=Tweets_to_be_Shown, Usr=user.nickname)
 
 #this is temporary but it will display los comentarios
 @app.route('/details/<int:tweet_id>', methods=['POST', 'GET'])
