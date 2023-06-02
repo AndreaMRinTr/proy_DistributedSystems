@@ -1,24 +1,22 @@
 # This is a sample Python script.
 from flask import Flask, request, render_template, session, redirect, url_for
-import mysql.connector
-from datetime import datetime
-from objects import User, Tweet, Thread
+from database import Database
+from objects import User
+from authenticate import AuthenticationService
+from Tweet_Extract import Tweet_manager
 
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 app.secret_key = 'your_secret_key'
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="tweetdisarq"  # Replace with your actual database name
-)
-cursor = db.cursor()
+
+#Dependency Injection (DI) Pattern
+db = Database("localhost", "root", "", "tweetdisarq")  # Replace with your actual database details
+auth_service = AuthenticationService(db)
+TwtMngr = Tweet_manager(db)
+
 
 # login screen
 @app.route('/', methods=['GET'])
 def hello_world():
-    #return 'Hello, World!  check out this tweet {}'.format(create_tweet())
     return render_template('Home.html')
 
 @app.route('/login', methods=['POST'])
@@ -26,23 +24,13 @@ def login_check():
     #obtiene el userid y password de sus respectivas inputfields
     username = request.form['username']
     contrasena = request.form['password']
-    #hash = password.hash_password(contrasena)
-
-    #establece el query que sera llevado acabo y regresa los resultados
-    # los guarda en user_info
-    query = "SELECT * FROM user WHERE userid= %s AND passw = %s"
-    cursor.execute(query, (username, contrasena))
-    user_info = cursor.fetchone()
-
+    user_master = auth_service.login(username, contrasena)
     #verifica si existe este usuario
-    if user_info:
-        user_master = User(user_info[0], user_info[1])
-        user_master.password = user_info[2]
+    if user_master:
         session['user'] = user_master.__dict__
         return redirect('/board')
     else:
         return "error"
-
 
 #pagina donde se crean tweets nuevos
 @app.route('/create_tweet', methods=['POST'])
@@ -53,102 +41,38 @@ def create_tweet():
         user = User(user_dict['name'], user_dict['nickname'])
     return render_template('newTweet.html', Usr=user.nickname)
 
-
 #Dashboard del usuario
 @app.route('/board', methods=['GET', 'POST'])
 def board():
-    Tweets_to_be_Shown = []
-
     # accede al variable global User
     user_dict = session.get('user')
     if user_dict:
         user = User(user_dict['name'], user_dict['nickname'])
-    #query para conseguir todos los tweets
-    query = """
-    SELECT t.fecha, t.text, u.nickname, t.hora,t.id
-    FROM tweet AS t
-    JOIN user AS u ON t.author = u.userid
-    """
-    cursor.execute(query)
-    data = cursor.fetchall() # esta data se refiere a todos los tweets
+    tweets_to_be_Shown = TwtMngr.get_Tweets()
+    return render_template('DashBoard.html', data=tweets_to_be_Shown, Usr=user.nickname)
 
-    for item in data:
-        twt = Tweet(item[1], item[2], item[0], item[3], item[4])
-        print("Author:", twt.author)
-        print("Text:", twt.text)
-        print("Timestamp:", twt.timestamp)
-        print("Hour:", twt.hour)
-        print("----------")
-        #la siguiente funcion se encarga de conseguir todos los commentarios
-        query = """
-           SELECT c.fecha, c.text, u.nickname, c.hora
-           FROM comment AS c
-           JOIN user AS u ON c.userid = u.userid
-           WHERE   c.id_tweet = %s
-           """
-        cursor.execute(query, (item[4],))
-        reply = cursor.fetchall()
-        twt.comments = reply
-        Tweets_to_be_Shown.append(twt)
-    return render_template('DashBoard.html', data=Tweets_to_be_Shown, Usr=user.nickname)
-
-#this is temporary but it will display los comentarios
 @app.route('/details/<int:tweet_id>', methods=['POST', 'GET'])
 def details(tweet_id):
     if request.method == 'POST':
-
         reply_text = request.form['reply']
-
         insert_comment(reply_text, tweet_id)
-
         return redirect(url_for('details', tweet_id=tweet_id))
-    query = """
-   SELECT t.fecha, t.text, u.nickname, t.hora
-   FROM comment AS t
-   JOIN user AS u ON t.userid = u.userid
-   WHERE   t.id_tweet = %s
-   """
-    cursor.execute(query, (tweet_id,))
-    data = cursor.fetchall()
 
+    data = TwtMngr.get_comments((tweet_id,))
     user_dict = session.get('user')
     if user_dict:
         user = User(user_dict['name'], user_dict['nickname'])
-    selected = getSingleTweet(tweet_id)
+    selected = TwtMngr.get_selected_Tweet((tweet_id,))
     return render_template('details.html', threads=data, Usr=user.nickname, Tweet=tweet_id, Selctd = selected)
 
-def getSingleTweet(tweet_id):
-    query = """SELECT t.fecha, t.text, u.nickname, t.hora,t.id
-    FROM tweet AS t
-    JOIN user AS u ON t.author = u.userid
-    WHERE   t.id = %s
-    """
-    cursor.execute(query, (tweet_id,))
-    data = cursor.fetchone()
-    return data
-#ya no se necesita
-
-#crea un tweet, pero hay que tener acceso al usuario primero antes de insertarlo en la DB
-def insert_tweet(text):
-    #acceso al usuario
+@app.route('/events', methods=['GET', 'POST'])
+def events():
+    # accede al variable global User
     user_dict = session.get('user')
     if user_dict:
         user = User(user_dict['name'], user_dict['nickname'])
-
-    _datetime = datetime.now()
-    # Convert date and time to strings
-    cur_fecha = _datetime.strftime('%d/%m/%Y')
-    cur_hora = _datetime.strftime('%H:%M:%S')
-    cursor = db.cursor()
-
-    query = """
-    INSERT INTO tweet (fecha, hora, author, text)
-    VALUES (%s, %s, %s, %s)
-    """
-    values = (cur_fecha, cur_hora,user.name, text)  # Replace with appropriate values for fecha, hora, and author
-    cursor.execute(query, values)
-    db.commit()
-    return "Tweet inserted successfully"
+    data = auth_service.get_events()
+    return render_template('Event_Dash.html', data=data, Usr=user.nickname)
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -161,21 +85,17 @@ def insert_comment(text,id):
     user_dict = session.get('user')
     if user_dict:
         user = User(user_dict['name'], user_dict['nickname'])
-    _datetime = datetime.now()
-    # Convert date and time to strings
-    cur_fecha = _datetime.strftime('%d/%m/%Y')
-    cur_hora = _datetime.strftime('%H:%M:%S')
-    cursor = db.cursor()
-
-    query = """
-        INSERT INTO comment (id_tweet,fecha,hora,userid,text)
-        VALUES (%s, %s, %s, %s, %s)
-        """
-    values = (id, cur_fecha, cur_hora, user.name, text)  # Replace with appropriate values for fecha, hora, and author
-    cursor.execute(query, values)
-    db.commit()
+    TwtMngr.insert_comment(text, id, user.name)
     return "comment inserted successfully"
 
+#Design pattern uses Mvc
+def insert_tweet(text):
+    #acceso al usuario
+    user_dict = session.get('user')
+    if user_dict:
+        user = User(user_dict['name'], user_dict['nickname'])
+    TwtMngr.insert_Tweet(text, user.name)
+    return "Tweet inserted successfully"
 if __name__ == '__main__':
     app.run()
 

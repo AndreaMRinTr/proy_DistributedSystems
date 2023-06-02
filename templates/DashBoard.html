@@ -13,6 +13,9 @@
 			<span>bienvenido a Twitter Reloaded {{Usr}}</span>
 		</div>
 		<div class="button">
+			<form method="post" action="{{ url_for('events') }}">
+				<button  class ="abutton" type="submit">Events</button>
+			</form>
       		<form method="post" action="{{ url_for('create_tweet') }}">
 				<button  class ="abutton" type="submit">Nuevo Tweet</button>
 			</form>

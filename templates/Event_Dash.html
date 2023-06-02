@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Reloaded</title>
+	<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href= "{{ url_for('static', filename='tweet.css') }}">
+	<link rel="stylesheet" href= "{{ url_for('static', filename='header.css') }}">
+</head>
+<body>
+
+	<div class="top-bar">
+		<div class = username>
+			<span>bienvenido a Twitter Reloaded {{Usr}}</span>
+		</div>
+		<div class="button">
+      		<form method="post" action="{{ url_for('board') }}">
+				<button  class ="abutton" type="submit">return</button>
+			</form>
+		</div>
+
+	</div>
+
+
+	<div class="tweet-container">
+		{% for row in data %}
+		<div class="Tweet-box">
+			<div class="tweet">
+				<div class="tweet-header">
+					<h1 class="item">{{ row.author}}</h1>
+				</div>
+				<div class="tweet-content">
+					<p class="tweet-text">{{ row.desc }}</p>
+					<div class="tweet-details">
+						<p class ="left">{{ row.fecha }}</p>
+						<p class ="right">{{ row.hora}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
