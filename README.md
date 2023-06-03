@@ -42,3 +42,5 @@ Esto iniciará un contenedor de Docker y mapeará el puerto 5000 en el contenedo
 Si tienes problemas para construir o ejecutar la imagen de Docker, asegúrate de que Docker esté instalado y funcionando en tu máquina. También puedes intentar ejecutar los comandos de Docker con permisos elevados (por ejemplo, usando `sudo`).
 
 Si encuentras algún otro problema, consulta la documentación de [Flask](https://flask.palletsprojects.com/) o de [Docker](https://docs.docker.com/) para obtener más información.
+
+## principios Solid y patrones de Diseño

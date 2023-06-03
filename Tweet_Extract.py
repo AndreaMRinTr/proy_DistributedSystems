@@ -1,5 +1,7 @@
 from objects import Tweet
 from datetime import datetime
+import unittest
+from unittest.mock import MagicMock
 
 class Tweet_manager:
     def __init__(self, database):
