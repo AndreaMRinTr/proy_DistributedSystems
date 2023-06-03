@@ -11,8 +11,7 @@ class Tweet_manager:
             SELECT t.fecha, t.text, u.nickname, t.hora,t.id
             FROM tweet AS t
             JOIN user AS u ON t.author = u.userid
-            ORDER BY fecha DESC, hora DESC
-            LIMIT 10;
+            ORDER BY fecha ASC, hora ASC;
             """
         data = self.db.execute_query(query)
         # Data Access Object (DAO) Pattern:
